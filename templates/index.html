@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>QR Studio</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="QR Studio home">
+        <span class="brand-mark"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 4h10v10H4zM18 4h10v10H18zM4 18h10v10H4zM18 18h4v4h-4zM24 18h4v4h-4zM18 24h4v4h-4zM24 24h4v4h-4z" fill="currentColor"/><path d="M7 7h4v4H7zM21 7h4v4h-4zM7 21h4v4H7z" fill="#111"/></svg></span>
+        <span>QR<span class="brand-light">STUDIO</span></span>
+      </a>
+      <div class="topbar-right"><span class="status-dot"></span><span>LOCAL DESKTOP APP</span><span class="version">v1.0</span></div>
+    </header>
+
+    <main>
+      <section class="intro">
+        <p class="eyebrow">SIMPLE. SHARP. SCANNABLE.</p>
+        <h1>Turn any link into<br><span>a QR code.</span></h1>
+        <p class="subheading">Create a clean, high-quality QR code in seconds.<br>Customize it, preview it, and save it to your device.</p>
+      </section>
+
+      <section class="workspace">
+        <div class="panel editor-panel">
+          <div class="panel-heading">
+            <div><p class="eyebrow">01 / INPUT</p><h2>Make your QR</h2></div>
+            <span class="step-icon">↗</span>
+          </div>
+
+          <form id="qr-form">
+            <label for="url">Website URL</label>
+            <div class="url-input-wrap">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.07 0l3-3A5 5 0 0 0 13 2.93l-1.72 1.72M14 11a5 5 0 0 0-7.07 0l-3 3A5 5 0 0 0 11 21.07l1.72-1.72" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+              <input id="url" name="url" type="text" placeholder="https://example.com" autocomplete="url" spellcheck="false" required>
+              <button type="button" class="clear-btn" id="clear-url" aria-label="Clear URL">×</button>
+            </div>
+            <p class="hint">Tip: you can enter a domain without https://</p>
+
+            <div class="field-row">
+              <div class="field-group">
+                <label for="foreground">QR color</label>
+                <div class="color-control"><input id="foreground" type="color" value="#111111"><span id="foreground-value">#111111</span></div>
+              </div>
+              <div class="field-group">
+                <label for="background">Background</label>
+                <div class="color-control"><input id="background" type="color" value="#F7F5EF"><span id="background-value">#F7F5EF</span></div>
+              </div>
+            </div>
+
+            <label for="error-correction">Error correction</label>
+            <select id="error-correction">
+              <option value="L">Low — smallest QR</option>
+              <option value="M" selected>Medium — recommended</option>
+              <option value="Q">Quartile — more resilient</option>
+              <option value="H">High — maximum resilience</option>
+            </select>
+            <p class="hint">Higher correction can make dense QR codes larger.</p>
+
+            <button class="primary-btn" id="generate-btn" type="submit">
+              <span>Generate QR code</span><span class="btn-arrow">↗</span>
+            </button>
+            <p id="message" class="message" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+
+        <div class="panel preview-panel">
+          <div class="panel-heading">
+            <div><p class="eyebrow">02 / PREVIEW</p><h2>Your creation</h2></div>
+            <span class="preview-label" id="preview-state">WAITING FOR URL</span>
+          </div>
+
+          <div class="preview-stage" id="preview-stage">
+            <div class="empty-state" id="empty-state">
+              <div class="empty-icon"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M7 7h19v19H7zM38 7h19v19H38zM7 38h19v19H7zM38 38h8v8h-8zM50 38h7v7h-7zM38 50h8v7h-8zM50 50h7v7h-7z" fill="none" stroke="currentColor" stroke-width="3"/><path d="M12 12h9v9h-9zM43 12h9v9h-9zM12 43h9v9h-9z" fill="currentColor"/></svg></div>
+              <h3>Your QR appears here</h3>
+              <p>Paste a link and generate your first code.</p>
+            </div>
+            <img id="qr-image" alt="Generated QR code preview" hidden>
+          </div>
+
+          <div class="preview-meta">
+            <div class="meta-copy"><span class="meta-label">DESTINATION</span><p id="destination">No link generated yet</p></div>
+            <span class="dimensions" id="dimensions">— × — px</span>
+          </div>
+          <button class="download-btn" id="download-btn" type="button" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5M5 17v4h14v-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Download PNG</span><span class="download-note">HIGH QUALITY</span></button>
+          <p class="privacy-note"><span>●</span> Generated locally on your computer. No account required.</p>
+        </div>
+      </section>
+      <footer><span>QR STUDIO</span><span>MADE FOR THE INTERNET.</span></footer>
+    </main>
+  </div>
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
